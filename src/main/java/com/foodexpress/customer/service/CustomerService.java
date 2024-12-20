@@ -5,7 +5,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.foodexpress.customer.dao.AccountPreferenceDao;
 import com.foodexpress.customer.dao.CustomerDao;
+import com.foodexpress.customer.model.AccountPreference;
 import com.foodexpress.customer.model.Customer;
 import com.foodexpress.utilities.PasswordUtils;
 
@@ -16,22 +18,42 @@ public class CustomerService implements ICustomer{
 	@Autowired
 	CustomerDao customerDao;
 	
-	@Override
-	public boolean registerCustomer(Customer customer) {
-	    String email = customer.getEmail();
+	 @Autowired
+     AccountPreferenceDao accountPreferenceDao;
+	
+	 @Override
+	 public boolean registerCustomer(Customer customer) {
+	     String email = customer.getEmail();
 
-	    // Check if the email already exists
-	    Optional<Customer> existingCustomer = customerDao.findByEmail(email);
-	    if (existingCustomer.isPresent()) {
-	        return false;
-	    } else {
-	        // Hash the password before saving
-	        String hashedPassword = PasswordUtils.hashPassword(customer.getPassword());
-	        customer.setPassword(hashedPassword);
-	        customerDao.save(customer);
-	        return true;
-	    }
-	}
+	     // Check if the email already exists
+	     Optional<Customer> existingCustomer = customerDao.findByEmail(email);
+	     if (existingCustomer.isPresent()) {
+	         return false; // Registration failed due to duplicate email
+	     } else {
+	         // Hash the password before saving
+	         String hashedPassword = PasswordUtils.hashPassword(customer.getPassword());
+	         customer.setPassword(hashedPassword);
+
+	         // Save the customer
+	         Customer savedCustomer = customerDao.save(customer);
+
+	         // Create default account preferences
+	         AccountPreference accountPreference = AccountPreference.builder()
+	                 .userId(savedCustomer.getUserId()) // Set userId from saved customer
+	                 .notificationFlag(true)
+	                 .newsletterFlag(true)
+	                 .promosAndOfferFlag(true)
+	                 .orderStatusFlag(true)
+	                 .coins(100)
+	                 .build();
+
+	         // Save the account preferences
+	         accountPreferenceDao.save(accountPreference);
+
+	         return true; // Registration successful
+	     }
+	 }
+
 
 
 

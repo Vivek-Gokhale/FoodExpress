@@ -3,6 +3,7 @@ package com.foodexpress.customer.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foodexpress.customer.model.Customer;
@@ -21,12 +22,23 @@ public class CustomerController {
 	CustomerService customerService;
 	
 	@PostMapping("/register-customer")
-	public String handleCustomerRegister(@ModelAttribute Customer customer ) {
-		if(customerService.registerCustomer(customer))
-		return "success";
-		return "failed";
-		
+	public String handleCustomerRegister(@RequestBody String customerJson) {
+	    try {
+	        // Convert JSON string to Customer object
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        Customer customer = objectMapper.readValue(customerJson, Customer.class);
+
+	        // Call the service method with the converted Customer object
+	        if (customerService.registerCustomer(customer)) {
+	            return "success";
+	        }
+	        return "failed";
+	    } catch (JsonProcessingException e) {
+	        e.printStackTrace();
+	        return "failed"; // Handle the error gracefully in production
+	    }
 	}
+
 	
 	@PostMapping("/deactive-account/{userId}")
 	public String handleAccountDeactivation(@PathVariable("userId") int id) {
@@ -36,6 +48,8 @@ public class CustomerController {
 		return "failed";
 		
 	}
+	
+	
 	
 	@PostMapping("/login")
 	public String handleLogin(@RequestBody String body) {
