@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
+
+import com.foodexpress.admin.model.OrderItem;
 
 @Data
 @AllArgsConstructor
@@ -23,9 +26,6 @@ public class Order {
 
     @Column(name = "user_id", nullable = false)
     private int userId;
-
-    @Column(name = "item_restaurant_quantity_pair", nullable = false, length = 2000)
-    private String itemRestaurantQuantityPair;
 
     @Column(name = "order_date", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -46,6 +46,7 @@ public class Order {
     @Column(name = "delivery_status", nullable = false, length = 100)
     private String deliveryStatus;
 
-    @Column(name = "special_request", length = 1000)
-    private String specialRequest;
+    // Add a transient field for OrderItem
+    @Transient
+    private List<OrderItem> orderItems; // Not persisted in the database
 }
