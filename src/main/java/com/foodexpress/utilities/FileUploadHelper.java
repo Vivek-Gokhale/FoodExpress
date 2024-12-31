@@ -18,7 +18,7 @@ public class FileUploadHelper {
 
     public static List<String> uploadFiles(MultipartFile[] files) {
 
-        final String UPLOAD_DIR = "C:\\Users\\Excel\\Documents\\workspace-spring-tool-suite-4-4.27.0.RELEASE\\FoodExpress\\src\\main\\resources\\static\\images_RestaurantM";
+        final String UPLOAD_DIR = "C:\\Users\\Excel\\Documents\\workspace-spring-tool-suite-4-4.27.0.RELEASE\\FoodExpress2\\src\\main\\resources\\static\\images_RestaurantM";
         List<String> uploadedFileNames = new ArrayList<>();
 
         try {
@@ -43,7 +43,7 @@ public class FileUploadHelper {
     public static String uploadFile(MultipartFile file)
     {
 
-        final String UPLOAD_DIR = "C:\\Users\\Excel\\Documents\\workspace-spring-tool-suite-4-4.27.0.RELEASE\\FoodExpress\\src\\main\\resources\\static\\images_DeliveryM";
+        final String UPLOAD_DIR = "C:\\Users\\Excel\\Documents\\workspace-spring-tool-suite-4-4.27.0.RELEASE\\FoodExpress2\\src\\main\\resources\\static\\images_DeliveryM";
     	String originalFilename = file.getOriginalFilename();
         String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
         String uniqueFilename = UUID.randomUUID().toString() + fileExtension;

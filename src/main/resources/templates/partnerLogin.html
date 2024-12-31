@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Partner Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="form-container">
+        <p class="title">Partner Login</p>
+        <form class="form" method="post" id="deliveryPartnerLoginForm">
+            <input type="email" class="input" name="email" placeholder="Email" required id="loginEmail">
+            <input type="password" class="input" name="password" placeholder="Password" required id="loginPassword">
+            <button class="btn" type="submit">Log in</button>
+        </form>
+    </div>
+    <script th:src="@{/javascript/partnerLogin.js}"></script>
+</body>
+</html>

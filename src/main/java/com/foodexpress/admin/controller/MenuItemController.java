@@ -98,7 +98,7 @@ public class MenuItemController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("delete-menu-item/{itemId}")
+    @DeleteMapping("delete-menu-item/{itemId}")
     public ResponseEntity<Void> deleteMenuItem(@PathVariable int itemId) {
         boolean isDeleted = menuItemService.deleteMenuItem(itemId);
         if (isDeleted) {
@@ -108,7 +108,7 @@ public class MenuItemController {
         }
     }
 
-    @PostMapping("get-menu-items/{restaurantId}")
+    @GetMapping("get-menu-items/{restaurantId}")
     public ResponseEntity<List<RestaurantMenuItem>> getMenuItems(@PathVariable int restaurantId) {
         List<RestaurantMenuItem> items = menuItemService.getMenuItems(restaurantId);
         if (items.isEmpty()) {

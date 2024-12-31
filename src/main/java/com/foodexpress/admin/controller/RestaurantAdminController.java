@@ -23,14 +23,16 @@ public class RestaurantAdminController {
     private RestaurantRegisterService restaurantRegisterService;
     @PostMapping("add-admin")
     public ResponseEntity<String> addAdmin(@RequestBody RestaurantAdmin admin) {
+    	System.out.println(admin);
         boolean isAdded = restaurantAdminService.addAdmin(admin);
         if (isAdded) {
-        	
             return ResponseEntity.ok("Admin added successfully.");
         } else {
             return ResponseEntity.badRequest().body("Failed to add admin.");
         }
     }
+
+
 
     @PostMapping("update-admin")
     public ResponseEntity<String> updateAdmin(@RequestBody RestaurantAdmin admin) {
@@ -43,7 +45,7 @@ public class RestaurantAdminController {
         }
     }
 
-    @PostMapping("delete-admin/{aid}")
+    @DeleteMapping("delete-admin/{aid}")
     public ResponseEntity<String> deleteAdmin(@PathVariable int aid) {
         boolean isDeleted = restaurantAdminService.deleteAdmin(aid);
         if (isDeleted) {
@@ -74,7 +76,7 @@ public class RestaurantAdminController {
     }
 
     
-    @PostMapping("get-admins/{rid}")
+    @GetMapping("get-admins/{rid}")
     public ResponseEntity<List<RestaurantAdmin>> getAdminsHandler(@PathVariable("rid") int rid) {
         List<RestaurantAdmin> admins = restaurantAdminService.getAdmins(rid);
 

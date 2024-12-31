@@ -15,7 +15,7 @@ public class AdminRestaurantReviewController {
     @Autowired
     private AdminRestaurantReviewService restaurantReviewService;
 
-    @PostMapping("/get-reviews/{restaurantId}")
+    @GetMapping("/get-reviews/{restaurantId}")
     public List<AdminRestaurantReview> getReviewHandler(@PathVariable("restaurantId") int restaurantId) {
         // Fetch and return the list of reviews for the given restaurant ID
         return restaurantReviewService.getReviews(restaurantId);

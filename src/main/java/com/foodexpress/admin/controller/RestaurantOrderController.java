@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.foodexpress.admin.dto.CustomerOrderStats;
 import com.foodexpress.admin.dto.OrderPerformance;
+import com.foodexpress.admin.dto.OrderPerformanceMonthly;
+import com.foodexpress.admin.dto.OrderPerformanceWeekly;
 import com.foodexpress.admin.service.RestaurantOrderService;
 
 @RestController
@@ -39,12 +41,12 @@ public class RestaurantOrderController {
     }
 
     @GetMapping("get-weekly-report/{restaurantId}")
-    public List<OrderPerformance> getWeeklyReportHandlder(@PathVariable Integer restaurantId) {
+    public List<OrderPerformanceWeekly> getWeeklyReportHandlder(@PathVariable Integer restaurantId) {
         return restaurantOrderService.getWeeklyReport(restaurantId);
     }
 
     @GetMapping("get-monthly-report/{restaurantId}")
-    public List<OrderPerformance> getMonthlyReportHandlder(@PathVariable Integer restaurantId) {
+    public List<OrderPerformanceMonthly> getMonthlyReportHandlder(@PathVariable Integer restaurantId) {
         return restaurantOrderService.getMonthlyReport(restaurantId);
     }
    

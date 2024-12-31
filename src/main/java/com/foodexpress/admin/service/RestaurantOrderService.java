@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.foodexpress.admin.dao.RestaurantOrderDao;
 import com.foodexpress.admin.dto.CustomerOrderStats;
 import com.foodexpress.admin.dto.OrderPerformance;
+import com.foodexpress.admin.dto.OrderPerformanceMonthly;
+import com.foodexpress.admin.dto.OrderPerformanceWeekly;
 import com.foodexpress.utilities.DateUtils;
 
 @Service
@@ -48,9 +50,9 @@ public class RestaurantOrderService implements IRestaurantOrder {
 
 
 	@Override
-	public List<OrderPerformance> getMonthlyReport(Integer restaurantId) {
+	public List<OrderPerformanceMonthly> getMonthlyReport(Integer restaurantId) {
 		// TODO Auto-generated method stub
-		return OrderPerformance.fromObjectArrayList(restaurantOrderDao.getMonthlyReportForRestaurant(restaurantId));
+		return OrderPerformanceMonthly.fromObjectArrayList(restaurantOrderDao.getMonthlyReportForRestaurant(restaurantId));
 	}
 
 
@@ -59,9 +61,9 @@ public class RestaurantOrderService implements IRestaurantOrder {
 
 
 	@Override
-	public List<OrderPerformance> getWeeklyReport(Integer restaurantId) {
+	public List<OrderPerformanceWeekly> getWeeklyReport(Integer restaurantId) {
 		// TODO Auto-generated method stub
-		return OrderPerformance.fromObjectArrayList(restaurantOrderDao.getWeeklyReportForRestaurant(restaurantId));
+		return OrderPerformanceWeekly.fromObjectArrayList(restaurantOrderDao.getWeeklyReportForRestaurant(restaurantId));
 	}
 
 

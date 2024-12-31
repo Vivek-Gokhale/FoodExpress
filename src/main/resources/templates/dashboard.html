@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title><link rel="stylesheet" th:href="@{/css/adminPanel.css}">
+</head>
+<body>
+  <div class="admin-panel">
+    <aside class="sidebar">
+      <div class="logo">Product Portfolio</div>
+      <nav>
+        <ul>
+          <!-- Combobox for Forms -->
+          <li class="combobox">
+            <span class="combobox-trigger">Forms ▼</span>
+            <ul class="combobox-options">
+              <li><a href="#" data-form="admin">Admin</a></li>
+              <li><a href="#" data-form="addMenuItem">Add MenuItem</a></li>
+            </ul>
+          </li>
+
+          <!-- Combobox for Tables -->
+          <li class="combobox">
+            <span class="combobox-trigger">Tables ▼</span>
+            <ul class="combobox-options">
+              <li><a href="#" data-table="admin">Admin</a></li>
+              <li><a href="#" data-table="reviews">Reviews</a></li>
+              <li><a href="#" data-table="userStats">Order stats</a></li>
+              <li><a href="#" data-table="dailyReport">Daily Report</a></li>
+              <li><a href="#" data-table="weeklyReport">Weekly Report</a></li>
+              <li><a href="#" data-table="monthlyReport">Monthly Report</a></li>
+              <li><a href="#" data-table="menuItemsTable">MenuItems</a></li>
+              <li><a href="#" data-table="orders">Orders</a></li>
+              <li><a href="#" data-table="preferences">Popular Preferences</a></li>
+              
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <header>
+        <h1>Welcome! Vivek Gokhale</h1>
+      </header>
+      <div id="displayArea"></div>
+    </main>
+  </div>
+<script th:src="@{/javascript/dashboard.js}"></script>
+</body>
+</html>

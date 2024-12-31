@@ -1,7 +1,11 @@
 package com.foodexpress.customer.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,32 +48,37 @@ public class CustomerController {
         return ResponseEntity.ok(otp);
     }
 	
-	 @PostMapping("verify-registration-otp")
-	    public ResponseEntity<String> handleCustomerRegister(@RequestBody String customerJson, HttpSession session) {
-	        try {
-	            ObjectMapper objectMapper = new ObjectMapper();
-	            Customer customer = objectMapper.readValue(customerJson, Customer.class);
-	            
-	            String otpFromRequest = customer.getOtp();  	            
-	            
-	            String otpFromSession = (String) session.getAttribute("otp");
-	            
-	            // Verify OTP
-	            if (otpFromSession != null && otpFromSession.equals(otpFromRequest)) {
-	                
-	                if (customerService.registerCustomer(customer)) {
-	                    session.removeAttribute("otp");  // Clear OTP from session after successful verification
-	                    return ResponseEntity.ok("Registration successful");
-	                }
-	                return ResponseEntity.status(400).body("Registration failed");
+	@PostMapping("verify-registration-otp")
+	public ResponseEntity<Map<String, String>> handleCustomerRegister(@RequestBody String customerJson, HttpSession session) {
+	    Map<String, String> response = new HashMap<>();
+	    try {
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        Customer customer = objectMapper.readValue(customerJson, Customer.class);
+	        
+	        String otpFromRequest = customer.getOtp();
+	        String otpFromSession = (String) session.getAttribute("otp");
+	        
+	        // Verify OTP
+	        if (otpFromSession != null && otpFromSession.equals(otpFromRequest)) {
+	            if (customerService.registerCustomer(customer)) {
+	                session.removeAttribute("otp"); // Clear OTP from session
+	                response.put("message", "Registration successful");
+	                return ResponseEntity.ok(response);
 	            } else {
-	                return ResponseEntity.status(400).body("Invalid OTP");
+	                response.put("error", "User with this email already exists");
+	                return ResponseEntity.status(400).body(response);
 	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return ResponseEntity.status(500).body("Internal server error");
+	        } else {
+	            response.put("error", "Invalid OTP");
+	            return ResponseEntity.status(400).body(response);
 	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.put("error", "Internal server error");
+	        return ResponseEntity.status(500).body(response);
 	    }
+	}
+
 
 	
 	@PostMapping("/deactive-account/{userId}")
@@ -82,23 +91,30 @@ public class CustomerController {
 	}
 	
 	
-	@PostMapping("/verify-login")
-	public String handleLogin(@RequestBody String body) {
+	@PostMapping("verify-customer-login")
+	public ResponseEntity<Map<String, String>> handleLogin(@RequestBody Map<String, String> request) {
+	    Map<String, String> response = new HashMap<>();
 	    try {
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        JsonNode jsonNode = objectMapper.readTree(body);
-
-	        String email = jsonNode.get("email").asText();
-	        String password = jsonNode.get("password").asText();
+	        String email = request.get("email");
+	        String password = request.get("password");
 
 	        if (customerService.isExist(email, password)) {
-	            return "success";
+	            response.put("status", "success");
+	            response.put("redirectTo", "index"); // Set the desired redirect URL
+	            return ResponseEntity.ok(response);
 	        }
+	        response.put("status", "failed");
+	        response.put("error", "Invalid email or password");
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        response.put("status", "error");
+	        response.put("error", "An internal server error occurred");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 	    }
-	    return "failed";
 	}
+
+
 	
 	@PostMapping("send-password-reset-otp")
 	public ResponseEntity<String> generateOTPHandler2(@RequestBody String body, HttpSession session) {
@@ -146,9 +162,8 @@ public class CustomerController {
 
 	
 	@PostMapping("reset-password")
-	public String handlePasswordChange(@RequestBody String body)
-	{
-		try {
+	public ResponseEntity<String> handlePasswordChange(@RequestBody String body) {
+	    try {
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        JsonNode jsonNode = objectMapper.readTree(body);
 
@@ -156,12 +171,14 @@ public class CustomerController {
 	        String password = jsonNode.get("password").asText();
 
 	        if (customerService.updatePassword(email, password)) {
-	            return "success";
+	            return ResponseEntity.ok("Password reset successfully.");
+	        } else {
+	            return ResponseEntity.status(400).body("Failed to reset password. Please check the details.");
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        return ResponseEntity.status(500).body("An error occurred while processing your request.");
 	    }
-	    return "failed";
 	}
 	
 }

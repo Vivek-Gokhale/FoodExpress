@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Be Partner</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="form-container" style="margin-top:20px;">
+        <p class="title">Be our Partner</p>
+        <form class="form" method="post" enctype="multipart/form-data" id="deliveryPartnerForm">
+            <!-- Hidden field for ID (if needed) -->
+            <input type="hidden" name="deliveryPartnerId">
+
+            <!-- Name -->
+            <input type="text" class="input" name="name" placeholder="Name" required>
+
+            <!-- Email -->
+            <input type="email" class="input" name="email" placeholder="Email" required>
+
+            <!-- Password -->
+            <input type="password" class="input" name="password" placeholder="Password" required>
+
+            <!-- Serving Pincode -->
+            <input type="text" class="input" name="servingPincode" placeholder="Serving Pincode" required>
+            
+            <!-- Phone Number -->
+            <input type="tel" class="input" name="phoneNo" placeholder="Phone Number" required>
+
+            <!-- Identity Proof (File Upload) -->
+           <p><sub>&emsp;Identity Proof</sub></p>
+<input type="file" class="FileInput" name="identityProof" accept="image/*,application/pdf">
+
+
+            
+
+            <!-- Submit Button -->
+            <button class="btn" type="submit">Be Partner</button>
+        </form>
+    </div>
+    <script th:src="@{/javascript/bePartner.js}"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Add Admin</title>
+</head>
+<body>
+    <div class="form-container" style="margin-top:50px;">
+        <p class="title">Add Admin</p>
+        <p style="text-align: center; font-size: 1rem; color: #666;margin-top:-30px;margin-bottom:10px;">
+            You are just one step far away to have your Cloud Kitchen Admin!
+        </p>
+        <form class="form" method="post" id="addAdminForm">
+            <input type="email" class="input" name="email" placeholder="Email" required autocomplete="off">
+            <input type="text" class="input" name="username" placeholder="Username" required autocomplete="off">
+            <input type="password" class="input" name="password" placeholder="Password" required autocomplete="off">
+            <button class="btn" type="submit">Add Admin</button>
+        </form>
+		 <script th:src="@{/javascript/addAdmin.js}"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Food Express</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+</head>
+<body>
+<div th:replace="navbar :: body"></div>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <img th:src="@{/images/hero.png}" alt="Delicious food">
+  <div class="hero-content">
+    <h1>Discover the best food & drinks in your surrounding</h1>
+    
+    <div class="search-bar">
+      <button>Order now</button>
+    </div>
+  </div>
+</div>
+
+<section id="iframe-section">
+    <iframe 
+        th:src="@{/foodSlider}" 
+        width="100%" 
+        height="730" 
+        style="border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" 
+        title="Embedded Content">
+    </iframe>
+</section>
+
+ <section class="section-policy">
+  <div class="SectionContainer grid grid-two--cols">
+    <div class="div-policy">
+      <div class="icons">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+      <div class="div-policy-text">
+        <p>Quick Delivery</p>
+        <p>Faster than you can say delivery!</p>
+      </div>
+    </div>
+
+    <div class="div-policy">
+      <div class="icons">
+        <i class="fa-solid fa-pizza-slice"></i>
+      </div>
+      <div class="div-policy-text">
+        <p>Wide Variety</p>
+        <p>Every craving, covered.</p>
+      </div>
+    </div>
+
+    <div class="div-policy">
+      <div class="icons"><i class="fa-solid fa-mobile-screen"></i>
+      </div>
+      <div class="div-policy-text">
+        <p>Seamless Ordering</p>
+        <p>Experience the ease of seamless ordering.</p>
+      </div>
+    </div>
+
+    <div class="div-policy">
+      <div class="icons">
+        <i class="fa-solid fa-headset"></i>
+      </div>
+      <div class="div-policy-text">
+        <p>Easy Online Support</p>
+        <p>24/7 Any time support</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div th:replace="footer :: body"></div>
+</body>
+</html>

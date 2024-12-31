@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+    <nav>
+        <div class="NavbarContainer">
+            <div class="logo">
+                <a href="#" th:href="@{/}">Food Express  &nbsp;|  <span style="font-weight:lighter; color:gray">Flavor Delivered</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a th:href="@{/}" href="#">Home</a></li>
+                <li><a th:href="@{about}" href="#">Food</a></li>
+                <li><a th:href="@{add-restaurant}" href="#">Add restaurant</a></li>
+                <li><a th:href="@{be-partner}" href="#">Be partner</a></li>
+            </ul>
+            <div class="dropdown">
+        <button class="dropdown-btn">Login</button>
+        <div class="dropdown-content">
+            <a th:href="@{customer-login}" href="#">Customer Login</a>
+            <a th:href="@{admin-login}" href="#">Admin Login</a>
+            <a th:href="@{partner-login}" href="#">Partner Login</a>
+        </div>
+    </div>
+        </div>
+    </nav>
+    
+    
+</body>
+</html>

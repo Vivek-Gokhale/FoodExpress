@@ -63,6 +63,7 @@ public class CustomerService implements ICustomer{
 	    Optional<Customer> existingCustomer = customerDao.findByEmail(email);
 	    
 	    if (!existingCustomer.isPresent()) {
+	    	System.out.println("not exist");
 	        // If customer does not exist, return false
 	        return false;
 	    } else {
