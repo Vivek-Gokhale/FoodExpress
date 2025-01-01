@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     adminLoginForm.addEventListener("submit", async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
 
-        // Collect input values
         const restaurantEmail = document.getElementById("restaurantEmail").value;
         const adminEmail = document.getElementById("adminEmail").value;
         const password = document.getElementById("adminPassword").value;
@@ -26,12 +25,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify(requestBody),
             });
 
-            // Handle the response
             if (response.ok) {
-                const message = await response.text();
-                alert(message); // Display success message
-                // Redirect or perform other actions as necessary
-				window.location.href = "/dashboard";
+                // Extract the response data
+                const responseData = await response.json();
+
+                localStorage.setItem("restaurantId", responseData.restaurantId);
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("email", adminEmail);  // Store admin email
+                localStorage.setItem("username", responseData.botName); // Store bot name or username
+
+                alert("Authentication successful"); 
+               
+                window.location.href = "/dashboard";
             } else if (response.status === 401) {
                 alert("Authentication failed. Please check your credentials.");
             } else {

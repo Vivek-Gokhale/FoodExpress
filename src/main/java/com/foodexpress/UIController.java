@@ -82,6 +82,11 @@ public class UIController {
 	     
 	     return "dashboard";
 	 }
+	 @GetMapping("/add-restaurant-address")
+	 public String showAddAddressPage(@RequestParam("restaurantId") int restaurantId, Model model) {
+	     model.addAttribute("restaurantId", restaurantId);
+	     return "addAddress";
+	 }
 	 
 	
 }

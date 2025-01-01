@@ -1,9 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const restaurantId = localStorage.getItem("restaurantId");
+  fetchDashboardData(restaurantId);
+  const logoutButton = document.getElementById("logout");
+  logoutButton.addEventListener("click", ()=>{
+	localStorage.removeItem("email");
+	localStorage.removeItem("restaurantId");
+	localStorage.removeItem("username");
+	localStorage.removeItem("isLoggedIn");
+	window.location.href = "/index";
+  });
+  	
   const displayArea = document.getElementById("displayArea");
-
+	
   document.querySelectorAll("[data-form]").forEach((option) => {
     option.addEventListener("click", (event) => {
       event.preventDefault();
+	  const canvas = document.getElementById('pieChart');
+	      if (canvas) {
+	          canvas.remove(); // Remove the canvas if it exists
+	      }
       const formType = option.getAttribute("data-form");
       displayForm(formType);
     });
@@ -12,12 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-table]").forEach((option) => {
     option.addEventListener("click", (event) => {
       event.preventDefault();
+	  const canvas = document.getElementById('pieChart');
+	      if (canvas) {
+	          canvas.remove(); // Remove the canvas if it exists
+	      }
       const tableType = option.getAttribute("data-table");
       displayTable(tableType);
     });
   });
   
-  const restaurantId = localStorage.getItem("restaurantId");
+  
 
   function displayForm(formType) {
     let formHTML = "";
@@ -34,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
               <label for="password">Password</label>
               <input type="password" id="password" placeholder="Enter password" required>
               <div>
-                <button type="submit" class="submit">Submit</button>
-                <button type="button" class="cancel">Cancel</button>
+                <button type="submit" class="submit">Add</button>
+                <button type="reset" class="cancel">Reset</button>
               </div>
             </form>
           </div>
@@ -64,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		          <input type="hidden" id="restaurantId" value="${restaurantId}">
 		          
 		          <div>
-		            <button type="submit" class="submit">Submit</button>
-		            <button type="button" class="cancel">Cancel</button>
+		            <button type="submit" class="submit">Add item</button>
+		            <button type="reset" class="cancel">Reset</button>
 		          </div>
 		        </form>
 		      </div>
@@ -110,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case "admin":
         tableHTML = `
           <div class="table-container">
-            <h2>Admin Table</h2>
+           
             <table class="admin-table"> 
               <thead>
                 <tr>
@@ -127,9 +146,10 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         break;
 		case "reviews":
+			
 		      tableHTML = `
 		        <div class="table-container">
-		          <h2>Reviews Table</h2>
+		          
 		          <table class="reviews-table">
 		            <thead>
 		              <tr>
@@ -150,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			  case "userStats":
 			    tableHTML = `
 			      <div class="table-container">
-			        <h2>User Statistics Table</h2>
+			        
 			        <table class="user-stats-table">
 			          <thead>
 			            <tr>
@@ -173,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				case "dailyReport":
 				            tableHTML = `
 				                <div class="table-container">
-				                    <h2>Daily Report Table</h2>
+				                  
 				                    <table class="daily-report-table">
 				                        <thead>
 				                            <tr>
@@ -194,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			case "weeklyReport":
 							            tableHTML = `
 							                <div class="table-container">
-							                    <h2>Daily Report Table</h2>
+							                    
 							                    <table class="daily-report-table">
 							                        <thead>
 							                            <tr>
@@ -216,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			case "monthlyReport":
 							            tableHTML = `
 							                <div class="table-container">
-							                    <h2>Daily Report Table</h2>
+							                   
 							                    <table class="daily-report-table">
 							                        <thead>
 							                            <tr>
@@ -238,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				case "menuItemsTable":
 				    tableHTML = `
 				        <div class="table-container">
-				            <h2>Menu Items</h2>
+				           
 				            <table class="menu-items-table">
 				                <thead>
 				                    <tr>
@@ -260,13 +280,13 @@ document.addEventListener("DOMContentLoaded", () => {
 					case "orders":
 					    tableHTML = `
 					        <div class="table-container">
-					            <h2>Waiting Orders</h2>
+					           
 					            <div class="filter-container">
 					                <label for="orderStatusFilter">Filter by Status:</label>
 					                <select id="orderStatusFilter">
 					                    <option value="waiting">Waiting</option>
-					                    <option value="accepted">Accepted</option>
-					                    <option value="prepared">Prepared</option>
+					                    <option value="preparing">Preparing</option>
+					                  
 					                    <option value="dispatched">Dispatched</option>
 					                </select>
 					            </div>
@@ -291,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				case "preferences":
 					tableHTML = `
 					       <div class="table-container">
-					           <h2>Customer Menu Preferences</h2>
+					           
 					           <table class="customer-preferences-table">
 					               <thead>
 					                   <tr>
@@ -475,24 +495,38 @@ document.addEventListener("DOMContentLoaded", () => {
 	        }
 	        return response.json();
 	      })
-	      .then(data => {
-	        const tbody = document.querySelector('.user-stats-table tbody');
-	        tbody.innerHTML = '';
-	        data.forEach(userStat => {
-	          const row = document.createElement('tr');
-	          row.innerHTML = `
-	            <td>${userStat.userId}</td>
-	            <td>${userStat.totalOrders}</td>
-	            <td>${userStat.ordersInLast7Days}</td>
-	            <td>${userStat.ordersInLast30Days}</td>
-	            <td>${userStat.ordersInLast365Days}</td>
-	            <td>${userStat.avgOrdersPerWeek}</td>
-	            <td>${userStat.avgOrdersPerMonth}</td>
-	            <td>${userStat.avgOrdersPerYear}</td>
-	          `;
-	          tbody.appendChild(row);
-	        });
-	      })
+		  .then(data => {
+		                         const tbody = document.querySelector('.user-stats-table tbody');
+		                         tbody.innerHTML = '';
+
+		                         data.forEach((userStat,index) => {
+		                             const row = document.createElement('tr');
+		                             row.setAttribute('data-row', JSON.stringify([
+		                                 userStat.totalOrders,
+		                                 userStat.ordersInLast7Days,
+		                                 userStat.ordersInLast30Days,
+		                                 userStat.ordersInLast365Days,
+		                                 userStat.avgOrdersPerWeek,
+		                                 userStat.avgOrdersPerMonth,
+		                                 userStat.avgOrdersPerYear
+		                             ]));
+
+		                             row.innerHTML = `
+		                                 <td>${index+1}</td>
+		                                 <td>${userStat.totalOrders}</td>
+		                                 <td>${userStat.ordersInLast7Days}</td>
+		                                 <td>${userStat.ordersInLast30Days}</td>
+		                                 <td>${userStat.ordersInLast365Days}</td>
+		                                 <td>${userStat.avgOrdersPerWeek}</td>
+		                                 <td>${userStat.avgOrdersPerMonth}</td>
+		                                 <td>${userStat.avgOrdersPerYear}</td>
+		                             `;
+		                             tbody.appendChild(row);
+		                         });
+
+		                         addRowClickEvents();
+		                     })
+
 	      .catch(error => {
 	        console.error('Error fetching user statistics data:', error);
 	        alert('Failed to load user statistics table.');
@@ -690,7 +724,7 @@ document.addEventListener("DOMContentLoaded", () => {
 								                      // Create the Add/Edit Menu Item form dynamically
 								                   
 								                      let formHTML = `<div class="form-container">
-								                          <h3>Edit Menu Item</h3>
+								                          <h2>Edit Menu Item</h2>
 								                          <form id="edit-menu-form">
 								                              <input type="hidden" id="menu-item-id" value="${menuItem.itemId}">
 								                              <div>
@@ -714,8 +748,8 @@ document.addEventListener("DOMContentLoaded", () => {
 																  <input type="hidden" id="menu-item-images" value="${menuItem.images}">
 																  																  
   								                              </div>
-								                              <button type="submit">Update Menu Item</button>
-								                              <button type="button" id="cancel-edit">Cancel</button>
+								                              <button type="submit" class="submit">Edit</button>
+								                              
 								                          </form>
 														  </div>
 								                      `;
@@ -759,9 +793,7 @@ document.addEventListener("DOMContentLoaded", () => {
 								                      });
 
 								                      // Handle cancel button click
-								                      document.getElementById("cancel-edit").addEventListener("click", () => {
-								                          formContainer.innerHTML = ""; // Clear the form
-								                      });
+								                      
 								                  })
 								                  .catch((error) => {
 								                      console.error("Error fetching menu item details:", error);
@@ -798,6 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					if(tableType == "preferences")
 						{
+							const chartData = [];
 							fetch(`/get-customer-preferences/${restaurantId}`)
 							        .then(response => {
 							            if (!response.ok) {
@@ -817,7 +850,13 @@ document.addEventListener("DOMContentLoaded", () => {
 							                    <td>${preference.percentageOfTotalOrders.toFixed(2) || 0}%</td>
 							                `;
 							                tbody.appendChild(row);
+											chartData.push({
+											                    dishName: preference.dishName || 'N/A',
+											                    percentage: preference.percentageOfTotalOrders || 0
+											                });
 							            });
+										createPieChartCanvas();
+										generatePieChart(chartData);
 							        })
 							        .catch(error => {
 							            console.error('Error fetching customer menu preferences:', error);
@@ -947,78 +986,172 @@ function fetchOrdersByStatus(status) {
         .then(data => {
             const tbody = document.querySelector('.order-items-table tbody');
             tbody.innerHTML = ''; // Clear existing rows
-			if(status == "waiting")
-				{
-					data.forEach((order, index) => {
-						if(order.currStatus == "placed"){
-							const row = document.createElement('tr');
-						                row.innerHTML = `
-						                    <td>${index+1}</td>
-						                    <td>${order.itemName}</td>
-						                    <td>${order.quantity}</td>
-						                    <td>${order.specialRequest || 'None'}</td>
-						                    <td>${order.price.toFixed(2)}</td>
-						                    <td><button class="edit-button" data-id="${order.id}">Accept</button></td>
-						                `;
-						                tbody.appendChild(row);
-						}
-						            
-					     });
-				}
-			else if(status == "accepted")
-				{
-					data.forEach((order, index) => {
-						if(order.currStatus == "accept"){
-							const row = document.createElement('tr');
-						                row.innerHTML = `
-						                    <td>${index+1}</td>
-						                    <td>${order.itemName}</td>
-						                    <td>${order.quantity}</td>
-						                    <td>${order.specialRequest || 'None'}</td>
-						                    <td>${order.price.toFixed(2)}</td>
-						                    <td><button class="edit-button" data-id="${order.id}">Accept</button></td>
-						                `;
-						                tbody.appendChild(row);
-						}
-						            
-					     });
-				}
-			else if(status == "prepared")
-				{
-					data.forEach((order, index) => {
-						if(order.currStatus == "prepared"){
-							const row = document.createElement('tr');
-						                row.innerHTML = `
-						                    <td>${index+1}</td>
-						                    <td>${order.itemName}</td>
-						                    <td>${order.quantity}</td>
-						                    <td>${order.specialRequest || 'None'}</td>
-						                    <td>${order.price.toFixed(2)}</td>
-						                    <td><button class="edit-button" data-id="${order.id}">Accept</button></td>
-						                `;
-						                tbody.appendChild(row);
-						}
-						            
-					     });
-				}
+			if (status == "waiting") {
+			    let i = 1;
+			    data.forEach((order) => {
+			        if (order.currStatus === "placed") {
+			            const row = document.createElement('tr');
+			            row.innerHTML = `
+			                <td>${i}</td>
+			                <td>${order.itemName}</td>
+			                <td>${order.quantity}</td>
+			                <td>${order.specialRequest || 'None'}</td>
+			                <td>${order.price.toFixed(2)}</td>
+			                <td>
+			                    <!-- Hidden fields to store additional data -->
+			                    <input type="hidden" class="order-id" value="${order.orderId}">
+			                    <input type="hidden" class="item-id" value="${order.itemId}">
+			                    <input type="hidden" class="restaurant-id" value="${order.restaurantId}">
+			                    <input type="hidden" class="quantity" value="${order.quantity}">
+			                    <input type="hidden" class="price" value="${order.price}">
+			                    <input type="hidden" class="specialRequest" value="${order.specialRequest || ''}">
+			                    
+			                    <button class="accept-button" data-id="${order.id}">Accept</button>
+			                </td>
+			            `;
+			            tbody.appendChild(row);
+			            i++;
+			        }
+			    });
+
+			    // Add event listeners for "Accept" buttons
+			    document.querySelectorAll('.accept-button').forEach(button => {
+			        button.addEventListener('click', function () {
+			            const row = this.closest('tr');
+			            const updatedOrder = {
+			                id: parseInt(this.dataset.id),
+			                orderId: parseInt(row.querySelector('.order-id').value),
+			                itemId: parseInt(row.querySelector('.item-id').value),
+			                restaurantId: parseInt(row.querySelector('.restaurant-id').value),
+			                quantity: parseInt(row.querySelector('.quantity').value),
+			                price: parseFloat(row.querySelector('.price').value),
+			                specialRequest: row.querySelector('.specialRequest').value,
+			                currStatus: "accept"
+			            };
+
+			            fetch('/update-order-status', {
+			                method: 'PUT',
+			                headers: {
+			                    'Content-Type': 'application/json'
+			                },
+			                body: JSON.stringify(updatedOrder)
+			            })
+			            .then(response => {
+			                if (!response.ok) {
+			                    throw new Error(`HTTP error! Status: ${response.status}`);
+			                }
+			                return response.text();
+			            })
+			            .then(message => {
+			                row.remove(); // Remove the row from the table
+			            })
+			            .catch(error => {
+			                console.error('Error updating order status:', error);
+			                alert('Failed to update order status. Please try again.');
+			            });
+			        });
+			    });
+			}
+
+			else if (status == "preparing") {
+			    let i = 1;
+			    data.forEach((order) => {
+			        if (order.currStatus === "accept") {
+			            const row = document.createElement('tr');
+			            row.innerHTML = `
+			                <td>${i}</td>
+			                <td>${order.itemName}</td>
+			                <td>${order.quantity}</td>
+			                <td>${order.specialRequest || 'None'}</td>
+			                <td>${order.price.toFixed(2)}</td>
+			                <td>
+			                    <!-- Hidden fields to store additional data -->
+			                    <input type="hidden" class="order-id" value="${order.orderId}">
+			                    <input type="hidden" class="item-id" value="${order.itemId}">
+			                    <input type="hidden" class="restaurant-id" value="${order.restaurantId}">
+			                    <input type="hidden" class="quantity" value="${order.quantity}">
+			                    <input type="hidden" class="price" value="${order.price}">
+			                    <input type="hidden" class="specialRequest" value="${order.specialRequest || ''}">
+			                    
+			                    <button class="dispatch-button" data-id="${order.id}">Send to Dispatch</button>
+			                </td>
+			            `;
+			            tbody.appendChild(row);
+			            i++;
+			        }
+			    });
+
+			    // Add event listeners for "Send to Dispatch" buttons
+			    document.querySelectorAll('.dispatch-button').forEach(button => {
+			        button.addEventListener('click', function () {
+			            const row = this.closest('tr');
+			            const updatedOrder = {
+			                id: parseInt(this.dataset.id),
+			                orderId: parseInt(row.querySelector('.order-id').value),
+			                itemId: parseInt(row.querySelector('.item-id').value),
+			                restaurantId: parseInt(row.querySelector('.restaurant-id').value),
+			                quantity: parseInt(row.querySelector('.quantity').value),
+			                price: parseFloat(row.querySelector('.price').value),
+			                specialRequest: row.querySelector('.specialRequest').value,
+			                currStatus: "dispatched"
+			            };
+
+			            fetch('/update-order-status', {
+			                method: 'PUT',
+			                headers: {
+			                    'Content-Type': 'application/json'
+			                },
+			                body: JSON.stringify(updatedOrder)
+			            })
+			            .then(response => {
+			                if (!response.ok) {
+			                    throw new Error(`HTTP error! Status: ${response.status}`);
+			                }
+			                return response.text();
+			            })
+			            .then(message => {
+			                row.remove(); // Remove the row from the table
+			            })
+			            .catch(error => {
+			                console.error('Error updating order status:', error);
+			                alert('Failed to update order status. Please try again.');
+			            });
+			        });
+			    });
+			}
+
 			else if(status == "dispatched")
 				{
+					const tableHeaderRow = document.querySelector('.order-items-table thead tr');
+					    if (tableHeaderRow) {
+					        const lastHeaderCell = tableHeaderRow.querySelector('th:last-child');
+					        if (lastHeaderCell) {
+					            lastHeaderCell.remove();
+					        } else {
+					            console.error('No last header cell found.');
+					        }
+					    } else {
+					        console.error('Table header row not found.');
+					    }
+					let i = 1;
 					data.forEach((order, index) => {
+						
 						if(order.currStatus == "dispatched"){
 							const row = document.createElement('tr');
 						                row.innerHTML = `
-						                    <td>${index+1}</td>
+						                    <td>${i}</td>
 						                    <td>${order.itemName}</td>
 						                    <td>${order.quantity}</td>
 						                    <td>${order.specialRequest || 'None'}</td>
 						                    <td>${order.price.toFixed(2)}</td>
-						                    
 						                `;
 						                tbody.appendChild(row);
+										i = i+1;
 						}
 						            
 					     });
 				}
+			
             
         })
         .catch(error => {
@@ -1027,3 +1160,328 @@ function fetchOrdersByStatus(status) {
         });
 }
 
+async function fetchDashboardData(restaurantId) {
+  try {
+    const response = await fetch(`get-dashboard/${restaurantId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const dashboardData = await response.json();
+      updateDashboardContent(dashboardData);
+    } else {
+      console.error(`Failed to fetch dashboard data: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
+  }
+}
+
+function updateDashboardContent(data) {
+  const formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'INR', // Change 'USD' to your desired currency code
+  }).format(data.totalPrice);
+
+  let username = localStorage.getItem("username");
+  username = username.charAt(0).toUpperCase() + username.slice(1);
+
+  const initialContent = `
+    <div class="dashboard-container">
+      <h1 class="welcome-message" style="font-size:44px;">👋 Welcome! ${username}</h1>
+      <div class="cards-container">
+        <div class="card">
+          <div class="card-icon file-icon"><i class="fa-solid fa-user"></i></div>
+          <div class="card-content">
+            <h3>CUSTOMERS</h3>
+            <p>${data.userCount}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon calendar-icon"><i class="fa-solid fa-bars"></i></div>
+          <div class="card-content">
+            <h3>MENUITEMS</h3>
+            <p>${data.menuItems}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon delivery-icon"><i class="fa-solid fa-star"></i></div>
+          <div class="card-content">
+            <h3>RATING</h3>
+            <p>${data.avgRating}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon category-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
+          <div class="card-content">
+            <h3>REVENUE</h3>
+            <p>${formattedPrice}</p>
+          </div>
+        </div>
+      </div>
+      <div class="location-container">
+        <br>
+        <div id="map" style="width: 100%; height: 300px;"></div>
+      </div>
+    </div>
+  `;
+
+  const logoElement = document.getElementsByClassName("logo")[0];
+  if (logoElement) {
+    logoElement.textContent = data.restaurantName; // Set the restaurant name
+  }
+
+  const displayArea = document.getElementById("displayArea");
+  if (displayArea) {
+    displayArea.innerHTML = initialContent;
+    initGoogleMap(data.location); // Call the function to initialize the map
+  } else {
+    console.error("Dashboard container not found.");
+  }
+}
+
+function initGoogleMap(location) {
+  const mapElement = document.getElementById("map");
+  if (!mapElement) {
+    console.error("Map container not found.");
+    return;
+  }
+
+  // Parse the location string into latitude and longitude
+  const [lat, lng] = location.split(',').map(coord => parseFloat(coord.trim()));
+
+  if (isNaN(lat) || isNaN(lng)) {
+    console.error("Invalid location data:", location);
+    return;
+  }
+
+  const position = { lat, lng };
+
+  // Initialize the map
+  const map = new google.maps.Map(mapElement, {
+    center: position,
+    zoom: 15,
+  });
+
+  // Add a marker for the location with a custom icon
+  new google.maps.Marker({
+    position,
+    map,
+    title: `Location: ${lat}, ${lng}`,
+    icon: {
+      url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // URL for the custom marker icon
+      scaledSize: new google.maps.Size(40, 40), // Adjust the size as needed
+    },
+  });
+}
+
+
+function generatePieChart(data) {
+    // Assume you're using a chart library like Chart.js or any other for generating the pie chart
+    const labels = data.map(item => item.dishName);
+    const percentages = data.map(item => item.percentage);
+
+    const ctx = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Customer Preferences',
+                data: percentages,
+                backgroundColor: [
+                    '#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0', '#ffb3e6',
+                    '#c2f0c2', '#ffb366', '#99ccff', '#ff6666', '#ffccff', '#ffff99',
+                    '#ff99cc', '#ffcc33', '#33cc33', '#ccccff', '#ffb3cc', '#99ffcc',
+                    '#b3b3cc', '#ff6666'
+                ], // Customize colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 16, // Increase label font size
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + '%';
+                        }
+                    }
+                },
+                datalabels: {
+                    anchor: 'end', // Position the label outside
+                    align: 'start', // Align the label to the outside of the pie
+                    font: {
+                        size: 14, // Font size for the labels outside the pie
+                    },
+                    formatter: (value, context) => {
+                        return context.chart.data.labels[context.dataIndex] + ': ' + value.toFixed(2) + '%';
+                    }
+                }
+            }
+        }
+    });
+}
+function createPieChartCanvas() {
+    // Check if a canvas element with id "pieChart" already exists
+    let existingCanvas = document.getElementById('pieChart');
+    if (existingCanvas) {
+        existingCanvas.remove(); // Remove the existing canvas if present
+    }
+
+    // Create a new canvas element
+    const canvas = document.createElement('canvas');
+    canvas.id = 'pieChart'; // Set the id for the canvas
+
+    // Add styles for centering
+    canvas.style.display = 'block';
+    canvas.style.margin = '0 auto';
+
+    // Append the canvas to the main-content element
+    const mainContent = document.getElementsByClassName("main-content")[0];
+    if (mainContent) {
+        mainContent.appendChild(canvas);
+    } else {
+        console.error('No element with class "main-content" found.');
+    }
+}
+function addRowClickEvents() {
+    const tableRows = document.querySelectorAll('.user-stats-table tbody tr');
+
+    let barChart; // Define the chart variable outside to reuse it
+
+    tableRows.forEach(row => {
+        row.addEventListener('click', function () {
+            const rowData = JSON.parse(this.getAttribute('data-row'));
+
+            // Remove any existing modal to ensure a clean slate
+            const existingModal = document.querySelector('#dynamicModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            // Create the modal dynamically
+            const modal = document.createElement('div');
+            modal.id = 'dynamicModal';
+            modal.className = 'modal';
+            modal.style.display = 'flex'; // Show the modal
+
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <canvas id="dynamicBarChart"></canvas>
+                </div>
+            `;
+
+            document.body.appendChild(modal); // Append the modal to the document body
+
+            // Close modal on clicking the close button
+            modal.querySelector('.close').addEventListener('click', () => {
+                modal.style.display = 'none';
+                if (barChart) {
+                    barChart.destroy(); // Destroy the chart when modal closes
+                }
+                modal.remove(); // Remove modal from DOM
+            });
+
+            // Close modal on clicking outside the content
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    if (barChart) {
+                        barChart.destroy(); // Destroy the chart
+                    }
+                    modal.remove(); // Remove modal from DOM
+                }
+            });
+
+            // Get the canvas element for the chart
+            const barChartCanvas = document.getElementById('dynamicBarChart').getContext('2d');
+
+            // Destroy existing chart instance if it exists
+            if (barChart) {
+                barChart.destroy();
+            }
+
+            // Create a new bar chart
+            barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Total Orders',
+                        'Orders in Last 7 Days',
+                        'Orders in Last 30 Days',
+                        'Orders in Last 365 Days',
+                        'Avg Orders Per Week',
+                        'Avg Orders Per Month',
+                        'Avg Orders Per Year'
+                    ],
+                    datasets: [{
+                        label: 'User Data',
+                        data: rowData,
+						backgroundColor: [
+						    '#FFC1C1', 
+						    '#9CC8ED', 
+						    '#AAE2C2', 
+						    '#D2C0E0', 
+						    '#F4E8AB', 
+						    '#D0F0C0', 
+						    '#E2B6CD'  
+						],
+
+                        borderColor: '#333',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    });
+}
+
+function syncSidebarHeight() {
+  const sidebar = document.querySelector(".sidebar");
+  const mainContent = document.querySelector(".main-content");
+
+  // Get the heights of sidebar and main-content
+  const sidebarHeight = sidebar.offsetHeight;
+  const mainContentHeight = mainContent.offsetHeight;
+
+  // Adjust the sidebar height if main-content is taller
+  if (mainContentHeight > sidebarHeight) {
+    sidebar.style.height = `${mainContentHeight}px`;
+  } else {
+    sidebar.style.height = ""; // Reset to default (let CSS handle it)
+  }
+}
+
+// Call function on load and whenever content dynamically changes
+window.addEventListener("load", syncSidebarHeight);
+window.addEventListener("resize", syncSidebarHeight);
+
+// Optional: Call whenever dynamic content is added
+const displayArea = document.getElementById("displayArea");
+const observer = new MutationObserver(syncSidebarHeight);
+observer.observe(displayArea, { childList: true, subtree: true });

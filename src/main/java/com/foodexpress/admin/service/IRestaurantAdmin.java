@@ -9,6 +9,6 @@ public interface IRestaurantAdmin {
 	public boolean updateAdmin(RestaurantAdmin admin);
 	public boolean deleteAdmin(int aid);
 	public List<RestaurantAdmin> getAdmins(int restaurantId);
-	public boolean authenticateAdmin(int rid, String aEmail, String password);
+	public String authenticateAdmin(int rid, String aEmail, String password);
 	
 }

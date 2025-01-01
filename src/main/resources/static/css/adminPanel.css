@@ -87,6 +87,8 @@ body {
 /* Combobox styles */
 .combobox {
   cursor: pointer;
+  border: none;
+  border-bottom: 1px solid #f4f4f4;
 }
 
 .combobox-trigger {
@@ -136,9 +138,60 @@ body {
 }
 
 header {
-  padding: 1rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+
+
+.logout-btn {
+  margin-left: auto; /* Pushes the button to the extreme left */
+ 
+}
+.logout {
+  background-color: #1E712A;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: transform 0.2s ease; /* Smooth transition for the bounce effect */
+}
+
+.logout:hover {
+  transform: scale(1.1); /* Slightly enlarges the button */
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.update-review,.delete-admin,.edit-button,.accept-button,.dispatch-button{
+	border:none;
+	background:none;
+	color:blue;
+}
+.update-review,.delete-admin,.edit-button,.accept-button,.dispatch-button:hover{
+	border:none;
+	background:none;
+	color:purple;
+}
+
+.edit-button{
+	border:none;
+	background:none;
+	color:blue;
+}
+.edit-button:hover{
+	border:none;
+	background:none;
+	color:purple;
 }
 
 .dashboard {
@@ -189,7 +242,13 @@ header {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 .form-container button {
   padding: 10px 20px;
   border: none;
@@ -198,58 +257,38 @@ header {
 }
 
 button.submit {
-  background-color: green;
+  background-color: #1E712A;
   color: white;
 }
 
 button.cancel {
-  background-color: black;
+  background-color: #233040;
   color: white;
 }
 
 /* Admin Table Styling */
-.admin-table {
-  width: 100%; 
-  border-collapse: collapse;
-  margin-top: 20px;
-}
 
-.admin-table th, .admin-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.admin-table th {
-  background-color: #f2f2f2;
-}
-
-/* Add hover effect for rows */
-.admin-table tr:hover {
-  background-color: #f5f5f5;
-}
 
 /* Style the delete button (if applicable) */
-.delete-button {
-  background-color: #f44336; /* Red */
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  cursor: pointer;
-  border-radius: 3px;
+.delete-button{
+	border:none;
+	background:none;
+	color:blue;
+}
+.delete-button:hover{
+	border:none;
+	background:none;
+	color:purple;
 }
 
 .table-container {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       border: 1px solid #ddd;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding:30px;
     }
     table {
       width: 100%;
@@ -274,3 +313,113 @@ button.cancel {
     .action-link:hover {
       text-decoration: underline;
     }
+
+    
+    
+    .dashboard-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.welcome-message {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    min-width: 200px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 24px;
+}
+
+.file-icon {
+    background-color: #009688;
+}
+
+.calendar-icon {
+    background-color: #2196F3;
+}
+
+.delivery-icon {
+    background-color: #FFC107;
+}
+
+.category-icon {
+    background-color: #F44336;
+}
+
+.card-content h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-content p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+.review-response{
+	padding:5px;
+}
+
+#pieChart {
+      width: 400px !important;
+      height: 400px !important;
+    }
+    
+ .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+ 

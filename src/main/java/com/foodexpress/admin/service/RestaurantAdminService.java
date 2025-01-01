@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.foodexpress.admin.dao.RestaurantAdminDao;
 import com.foodexpress.admin.dao.RestaurantRegisterDao;
+import com.foodexpress.admin.dto.DashboardDTO;
 import com.foodexpress.admin.model.RestaurantAdmin;
 import com.foodexpress.utilities.PasswordUtils;
 
@@ -62,15 +63,38 @@ public class RestaurantAdminService implements IRestaurantAdmin {
     }
 
     @Override
-    public boolean authenticateAdmin(int restaurantId, String aEmail, String password) {
+    public String authenticateAdmin(int restaurantId, String aEmail, String password) {
 
       
         String hashedPassword = PasswordUtils.hashPassword(password);
-
-        return restaurantAdminDao
+        
+       return restaurantAdminDao
             .findByRestaurantIdAndEmailAndPassword(restaurantId, aEmail, hashedPassword)
-            .isPresent();
+            .get().getUsername();
     }
+
+    public DashboardDTO getDashBoardDTO(int rid) {
+        // Fetch the count of distinct users for the restaurant
+    	
+        int totalPrice = restaurantAdminDao.findTotalPriceByRestaurantId(rid);
+        int userCount = restaurantAdminDao.countDistinctUsersByRestaurantId(rid);
+        int rating = restaurantAdminDao.findAvgRatingWithCeil(rid);
+        int itemCnt = restaurantAdminDao.countItemsByRestaurantId(rid);
+        String name = restaurantAdminDao.findRestaurantNameById(rid);
+        String location = restaurantAdminDao.findRestaurantLocationById(rid);
+        // Create a new DashboardDTO object and populate it with the fetched data
+        DashboardDTO dashboardDTO = new DashboardDTO();
+        dashboardDTO.setAvgRating(rating);
+        dashboardDTO.setMenuItems(itemCnt);
+        dashboardDTO.setRestaurantName(name);
+        dashboardDTO.setTotalPrice(totalPrice);
+        dashboardDTO.setUserCount(userCount);
+        dashboardDTO.setLocation(location);
+        
+        // Return the populated DashboardDTO
+        return dashboardDTO;
+    }
+
 
 
    

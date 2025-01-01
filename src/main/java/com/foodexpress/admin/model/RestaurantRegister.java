@@ -37,4 +37,11 @@ public class RestaurantRegister {
 
     @Column(name = "close_time", nullable = false)
     private LocalTime closeTime;
+    
+
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "address")
+    private String address;
 }

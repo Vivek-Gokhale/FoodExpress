@@ -3,33 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+     <script src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyB6FKmpfuZm3ksmjhjSV8PENftHnluWphg&libraries=places"></script>
     <title>Add Restaurant</title>
 </head>
 <body>
-    <div class="form-container" style="margin-top:50px;">
+<center>
+<div style="display:flex; gap:20px; width:900px">
+	<div class="form-container" style="margin-top:10px;">
         <p class="title">Add Restaurant</p>
         <form class="form" method="post">
             <input type="text" class="input" name="name" placeholder="Restaurant Name" required autocomplete="off">
             <input type="email" class="input" name="email" placeholder="Email" required autocomplete="off">
             <input type="tel" class="input" name="phoneNo" placeholder="Phone Number" required autocomplete="off">
             
-            <input type="date" class="input" name="registrationDate" 
+            <input type="hidden" class="input" name="registrationDate" 
                    th:value="${currentDate}" 
-                   readonly style="background-color:#D3D3D3">
+                   readonly >
             
-            <label for="startTime" style="font-size: 0.9rem;">Start Time</label>
-            <input type="time" class="input" name="startTime" id="startTime" required>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+			    <label for="startTime" style="font-size: 0.9rem; width: 100px; text-align: left;">Start Time:</label>
+			    <input type="time" class="input" name="startTime" id="startTime" required style="flex: 1;">
+			</div>
+			<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+			    <label for="closeTime" style="font-size: 0.9rem; width: 100px; text-align: left;">Close Time:</label>
+			    <input type="time" class="input" name="closeTime" id="closeTime" required style="flex: 1;">
+			</div>
+
             
-            <label for="closeTime" style="font-size: 0.9rem;">Close Time</label>
-            <input type="time" class="input" name="closeTime" id="closeTime" required>
+            
+           
+            <input type="text" id="searchInput" class="input" placeholder="Add address" required>
+            
             
             <button class="btn" type="submit">Add Restaurant</button>
         </form>
         
+        
         <p class="sign-up-label" style="font-size:12px;">
-            Back to <span class="sign-up-link"><a th:href="@{/index}">Dashboard</a></span>
+            Back to <span class="sign-up-link"><a th:href="@{/index}">FoodExpress</a></span>
         </p>
     </div>
+    <div id="map"></div>
+	</div>
+    
+</center>
+	
     <script th:src="@{/javascript/addRestaurant.js}"></script>
+    
 </body>
 </html>

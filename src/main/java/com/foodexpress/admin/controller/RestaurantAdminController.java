@@ -1,9 +1,11 @@
 package com.foodexpress.admin.controller;
 
+import com.foodexpress.admin.dto.DashboardDTO;
 import com.foodexpress.admin.model.RestaurantAdmin;
 import com.foodexpress.admin.service.RestaurantAdminService;
 import com.foodexpress.admin.service.RestaurantRegisterService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,24 +58,33 @@ public class RestaurantAdminController {
     }
 
     @PostMapping("authenticate-admin")
-    public ResponseEntity<String> authenticateAdmin(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<Map<String, Object>> authenticateAdmin(@RequestBody Map<String, String> requestBody) {
         String rEmail = requestBody.get("rEmail");
         String aEmail = requestBody.get("aEmail");
         String password = requestBody.get("password");
-       
-        if (rEmail == null || aEmail == null || password == null) {
-            return ResponseEntity.badRequest().body("Invalid input");
-        }
-        int rid = restaurantRegisterService.getRestaurantId(rEmail);
-        
-        boolean isAuthenticated = restaurantAdminService.authenticateAdmin(rid, aEmail, password);
 
-        if (isAuthenticated) {
-            return ResponseEntity.ok("Authentication successful");
+        if (rEmail == null || aEmail == null || password == null) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Invalid input");
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+
+        int rid = restaurantRegisterService.getRestaurantId(rEmail);
+
+        String name = restaurantAdminService.authenticateAdmin(rid, aEmail, password);
+
+        if (!name.isEmpty()) {
+            Map<String, Object> successResponse = new HashMap<>();
+            successResponse.put("botName", name);
+            successResponse.put("restaurantId", rid);
+            return ResponseEntity.ok(successResponse);
         } else {
-            return ResponseEntity.status(401).body("Authentication failed");
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Authentication failed");
+            return ResponseEntity.status(401).body(errorResponse);
         }
     }
+
 
     
     @GetMapping("get-admins/{rid}")
@@ -85,6 +96,16 @@ public class RestaurantAdminController {
         }
 
         return ResponseEntity.ok(admins); 
+    }
+    
+    @GetMapping("get-dashboard/{restaurantId}")
+    public ResponseEntity<DashboardDTO> getDashboardDTO(@PathVariable("restaurantId") int restaurantId) {
+        DashboardDTO dashboardDTO = restaurantAdminService.getDashBoardDTO(restaurantId);
+        if (dashboardDTO != null) {
+            return ResponseEntity.ok(dashboardDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
