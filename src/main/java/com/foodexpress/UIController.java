@@ -87,6 +87,11 @@ public class UIController {
 	     model.addAttribute("restaurantId", restaurantId);
 	     return "addAddress";
 	 }
+	 @GetMapping("/delivery-partner-dashboard")
+	 public String showPartnerDashboard(@RequestParam("name") String name, Model model) {
+	     model.addAttribute("name", name);
+	     return "deliveryPartner";
+	 }
 	 
 	
 }

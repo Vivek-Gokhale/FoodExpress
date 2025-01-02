@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Jost:wght@300;400;500;700&family=Poppins:wght@200;300;400;600&family=Quicksand:wght@300;400;500;600&family=Urbanist:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+}
+body{
+	background-color: white smoke;
+}
+
+        h1 {
+            color: black;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-top:40px;
+            max-width:80%;
+        }
+        .logout {
+        padding:6px;
+		  background-color: #1E712A;
+		  color: white;
+		  border: none;
+		  border-radius: 3px;
+		  transition: transform 0.2s ease; /* Smooth transition for the bounce effect */
+		}
+
+		.logout:hover {
+			padding:6px;
+		  transform: scale(1.1); /* Slightly enlarges the button */
+		  color: white;
+		  border: none;
+		  border-radius: 3px;
+		}
+      .table-container {
+      max-width: 100%;
+      margin: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding:30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+    .action-link {
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .action-link:hover {
+      text-decoration: underline;
+    }
+        .section {
+            margin-bottom: 40px;
+            max-width:80%;
+        }
+        
+        
+   .accept-order{
+   	border:none;
+   	background:none;
+   	color:blue;
+   	
+   }
+   .accept-order:hover{
+   	border:none;
+   	background:none;
+   	color:purple;
+   	
+   }
+   
+   .mark-complete{
+   	border:none;
+   	background:none;
+   	color:blue;
+   	
+   }
+   .mark-complete:hover{
+   	border:none;
+   	background:none;
+   	color:purple;
+   	
+   }
+   

@@ -25,15 +25,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: JSON.stringify(payload)
                 });
 
-                // Handle response
                 if (response.ok) {
-                    const message = await response.text();
-                    alert("Success: " + message);
-                    // Redirect to the delivery partner dashboard or another page
-                    window.location.href = "/";
+                    const data = await response.json();
+
+                    // Store details in localStorage
+                    localStorage.setItem("deliveryPartnerId", data.deliveryPartnerId);
+                    localStorage.setItem("email", data.email);
+                    localStorage.setItem("isLoggedIn", true);
+
+                    // Redirect with name as a query parameter
+                    const queryParam = new URLSearchParams({ name: data.name }).toString();
+                    window.location.href = `/delivery-partner-dashboard?${queryParam}`;
                 } else {
-                    const errorMessage = await response.text();
-                    alert("Error: " + errorMessage);
+                    const errorData = await response.json();
+                    alert("Error: " + errorData.error || "Authentication failed.");
                 }
             } catch (error) {
                 console.error("Error occurred:", error);

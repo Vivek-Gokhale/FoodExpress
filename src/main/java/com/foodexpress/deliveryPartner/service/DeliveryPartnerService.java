@@ -50,12 +50,12 @@ public class DeliveryPartnerService implements IDeliveryPartner{
 		return null;
 	}
 	
-	public boolean authenticateDeliveryPartner(String email, String password) {
+	public DeliveryPartner authenticateDeliveryPartner(String email, String password) {
 	    if (email == null || password == null) {
 	        throw new IllegalArgumentException("Email or password cannot be null");
 	    }
 	    String hashedPassword = PasswordUtils.hashPassword(password);
-	    return deliveryPartnerDao.findByEmailAndPassword(email, hashedPassword) != null;
+	    return deliveryPartnerDao.findByEmailAndPassword(email, hashedPassword);
 	}
 
 	public List<PendingOrderStatus> getPendingOrders() {

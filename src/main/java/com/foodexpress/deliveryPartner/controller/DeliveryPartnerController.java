@@ -1,5 +1,6 @@
 package com.foodexpress.deliveryPartner.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,16 +93,25 @@ public class DeliveryPartnerController {
 		}
 
 		@PostMapping("login-delivery-partner")
-		    public ResponseEntity<String> authenticateDeliveryPartner(@RequestBody Map<String, Object> mp) {
-				String email = (String) mp.get("email");
-				String password = (String) mp.get("password");
-		        boolean authenticated = deliveryPartnerService.authenticateDeliveryPartner(email, password);
-		        if (authenticated) {
-		            return ResponseEntity.ok("Authentication successful.");
-		        } else {
-		            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password.");
-		        }
+		public ResponseEntity<Map<String, Object>> authenticateDeliveryPartner(@RequestBody Map<String, Object> mp) {
+		    String email = (String) mp.get("email");
+		    String password = (String) mp.get("password");
+		    DeliveryPartner deliveryPartner = deliveryPartnerService.authenticateDeliveryPartner(email, password);
+
+		    if (deliveryPartner != null) {
+		      
+		        Map<String, Object> response = new HashMap<>();
+		        response.put("deliveryPartnerId", deliveryPartner.getDeliveryPartnerId());
+		        response.put("name", deliveryPartner.getName());
+		        response.put("email", deliveryPartner.getEmail());
+		        response.put("isLoggedIn", true);
+
+		        return ResponseEntity.ok(response);
+		    } else {
+		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid email or password."));
+		    }
 		}
+
 		
 		@GetMapping("get-pending-order")
 		public List<PendingOrderStatus> getPendingOrderStatusHandler()

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" th:href="@{/css/partner.css}">
+    <title>Delivery Partner Dashboard</title>
+   <style>
+   .table-heading {
+    margin: 0; /* Remove default margins */
+    text-align: left; /* Align heading to the left */
+    font-size: 1.5em; /* Adjust the font size as needed */
+    margin-bottom: 10px; /* Add spacing between the heading and the table */
+}
+   </style>
+</head>
+<body>
+
+<center>
+ <div class="header">
+        <h1>Welcome, <span th:text="${name}">Delivery Partner</span></h1>
+        <div>
+           
+            <button class="logout" id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Available Orders Section -->
+    <div class="section">
+        <p class="table-heading">Available Orders</p>
+        <table id="availableOrdersTable" class="table-container">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            
+        </table>
+    </div>
+
+    <!-- My Pending Orders Section -->
+    <div class="section">
+        <p class="table-heading">Pending Orders</p>
+        <table id="pendingOrdersTable" class="table-container">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Phone No.</th>
+                    <th>Address</th>
+                    <th>Total Amount</th>
+                    <th>Payment Option</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+           
+        </table>
+    </div>
+
+    <!-- My Completed Orders Section -->
+    <div class="section">
+        <p class="table-heading">Completed Orders</p>
+        <table id="completedOrdersTable" class="table-container">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Phone No.</th>
+                    <th>Address</th>
+                    <th>Total Amount</th>
+                    <th>Payment Option</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+           
+        </table>
+    </div></center>
+    <div id="otpModal" style="display: none;">
+    <div class="modal-content">
+        <h3>Enter OTP</h3>
+        <input type="text" id="otpInput" placeholder="Enter OTP" />
+        <button class="verify-otp">Verify</button>
+        <button class="close-modal" onclick="document.getElementById('otpModal').style.display='none'">Cancel</button>
+    </div>
+</div>
+    
+    <script th:src="@{/javascript/partner.js}"></script>
+</body>
+</html>

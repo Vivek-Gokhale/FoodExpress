@@ -36,11 +36,14 @@ int countDistinctUsersByRestaurantId(@Param("restaurantId") int restaurantId);
 	    nativeQuery = true)
 	int findAvgRatingWithCeil(@Param("restaurantId") int restaurantId);
 	
-	@Query(value = "SELECT COALESCE(SUM(price), 0) AS total_price " +
-	            "FROM order_items " +
-	            "WHERE restaurant_id = :restaurantId", 
-	    nativeQuery = true)
+	@Query(value = "SELECT COALESCE(SUM(oi.price * oi.quantity), 0) AS total_price " +
+            "FROM order_items oi " +
+            "WHERE oi.restaurant_id = :restaurantId " +
+            "AND oi.order_id IN ( " +
+            "    SELECT o.order_id FROM orders o WHERE o.delivery_status = 'completed' " +
+            ")", nativeQuery = true)
 	int findTotalPriceByRestaurantId(@Param("restaurantId") int restaurantId);
+
 
 	@Query(value = "SELECT name FROM restaurant_register_details WHERE restaurant_id = :restaurantId", 
 		       nativeQuery = true)

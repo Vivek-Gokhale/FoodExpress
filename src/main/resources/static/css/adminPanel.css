@@ -133,7 +133,7 @@ body {
 /* Main Content */
 .main-content {
   flex: 1;
-  background-color: #f4f4f4;
+  background-color: white smoke;
   overflow: hidden; /* Prevent scrolling for the main content */
 }
 
@@ -142,13 +142,14 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: #f4f4f4;
+  background-color:white smoke;
 }
 
 
 
 .logout-btn {
   margin-left: auto; /* Pushes the button to the extreme left */
+  margin-right:10px;
  
 }
 .logout {

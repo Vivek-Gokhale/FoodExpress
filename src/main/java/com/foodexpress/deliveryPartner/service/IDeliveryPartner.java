@@ -8,7 +8,7 @@ import com.foodexpress.deliveryPartner.model.DeliveryPartner;
 public interface IDeliveryPartner {
 	public boolean updateLocation(Integer partnerId, String longitude, String latitude);
 	public DeliveryPartner registerDeliveryPartner(DeliveryPartner partner);
-	public boolean authenticateDeliveryPartner(String email, String password);
+	public DeliveryPartner authenticateDeliveryPartner(String email, String password);
 	public List<PendingOrderStatus> getPendingOrders();
 	
 }
