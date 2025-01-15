@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+     <link rel="stylesheet" th:href="@{/css/style.css}"> 
+</head>
+<body>
+    <div class="form-container">
+        <p class="title">Welcome back</p>
+        <form class="form" method="post" id="loginform">
+            <input type="email" class="input" name="user_email" placeholder="Email" required id="loginEmail">
+            <input type="password" class="input" name="user_password" placeholder="Password" required id="loginPassword">
+            <p class="page-link" style="border: none; background: none;">
+                <a th:href="@{/forgot-password}" style="font-size:12px;">
+                    <span class="page-link-label">Forgot Password?</span>
+                </a>
+            </p>
+            <button class="btn" type="submit">Log in</button>
+        </form>
+        <p class="sign-up-label" style="font-size:12px;">
+            Don't have an account? 
+            <span class="sign-up-link">
+                <a th:href="@{/signup}">Sign up</a>
+            </span>
+        </p>
+    </div>
+    <!-- Include the login.js file -->
+    <script th:src="@{/javascript/login.js}"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="form-container">
+        <p class="title">Admin Login</p>
+        <form class="form" method="post" id="adminLoginForm">
+            <input type="email" class="input" name="restaurant_email" placeholder="Restaurant Email" required id="restaurantEmail">
+            <input type="email" class="input" name="admin_email" placeholder="Admin Email" required id="adminEmail">
+            <input type="password" class="input" name="password" placeholder="Password" required id="adminPassword">
+            <button class="btn" type="submit">Log in</button>
+        </form>
+    </div>
+    <!-- Include the admin-login.js file -->
+    <script th:src="@{/javascript/adminLogin.js}"></script>
+</body>
+</html>

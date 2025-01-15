@@ -1,0 +1,426 @@
+/* General reset */
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Jost:wght@300;400;500;700&family=Poppins:wght@200;300;400;600&family=Quicksand:wght@300;400;500;600&family=Urbanist:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+}
+
+html {
+  font-size: 100%; /* Base font size for rem scaling */
+  overflow-y: scroll; /* Enable scrolling */
+}
+
+body {
+  min-height: 100vh; /* Ensure body height covers the viewport */
+  background-color: var(--backgroundColor);
+  color: var(--textColor);
+  padding: 0;
+}
+
+/* Variables */
+:root {
+  --buttonColor: #13491B;
+  --secondaryColor: #4b4f56;
+  --borderColor: #e3eaf0;
+  --backgroundColor: rgb(255, 255, 255);
+  --backgroundSecondary: #fefefe;
+  --textColor: #1e1f23;
+  --anchorColor: #1E712A;
+  --main-color: #1E712A;
+  --supporting-color: #ebf3fe;
+  --glow-color: hsl(186, 91%, 4%);
+}
+
+/* Reusable Components */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 9.6rem 2.4rem;
+}
+
+
+.admin-panel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2e3b4e;
+  color: white;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.sidebar .logo {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  background-color: #233040;
+}
+
+.sidebar nav ul {
+  list-style: none;
+}
+
+.sidebar nav ul > li {
+  position: relative; /* For dropdown positioning */
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* Combobox styles */
+.combobox {
+  cursor: pointer;
+  border: none;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.combobox-trigger {
+  display: block;
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.combobox-options {
+  display: none; /* Initially hidden */
+  position: absolute;
+  background-color: #3b4b5e;
+  list-style: none;
+  padding: 0.5rem;
+  margin-top: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  z-index: 10;
+  width: 200px;
+}
+
+.combobox-options li {
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+
+.combobox-options li a {
+  color: white;
+  text-decoration: none;
+}
+
+.combobox-options li a:hover {
+  text-decoration: underline;
+}
+
+/* Show combobox options on hover or toggle */
+.combobox:hover .combobox-options,
+.combobox.open .combobox-options {
+  display: block;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  background-color: white smoke;
+  overflow: hidden; /* Prevent scrolling for the main content */
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color:white smoke;
+}
+
+
+
+.logout-btn {
+  margin-left: auto; /* Pushes the button to the extreme left */
+  margin-right:10px;
+ 
+}
+.logout {
+  background-color: #1E712A;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: transform 0.2s ease; /* Smooth transition for the bounce effect */
+}
+
+.logout:hover {
+  transform: scale(1.1); /* Slightly enlarges the button */
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.update-review,.delete-admin,.edit-button,.accept-button,.dispatch-button{
+	border:none;
+	background:none;
+	color:blue;
+}
+.update-review,.delete-admin,.edit-button,.accept-button,.dispatch-button:hover{
+	border:none;
+	background:none;
+	color:purple;
+}
+
+.edit-button{
+	border:none;
+	background:none;
+	color:blue;
+}
+.edit-button:hover{
+	border:none;
+	background:none;
+	color:purple;
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#displayArea {
+  margin-top: 20px;
+}
+
+.form-container {
+  width: 400px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.form-container h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.form-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.submit {
+  background-color: #1E712A;
+  color: white;
+}
+
+button.cancel {
+  background-color: #233040;
+  color: white;
+}
+
+/* Admin Table Styling */
+
+
+/* Style the delete button (if applicable) */
+.delete-button{
+	border:none;
+	background:none;
+	color:blue;
+}
+.delete-button:hover{
+	border:none;
+	background:none;
+	color:purple;
+}
+
+.table-container {
+      max-width: 900px;
+      margin: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding:30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+    .action-link {
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .action-link:hover {
+      text-decoration: underline;
+    }
+
+    
+    
+    .dashboard-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.welcome-message {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    min-width: 200px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 24px;
+}
+
+.file-icon {
+    background-color: #009688;
+}
+
+.calendar-icon {
+    background-color: #2196F3;
+}
+
+.delivery-icon {
+    background-color: #FFC107;
+}
+
+.category-icon {
+    background-color: #F44336;
+}
+
+.card-content h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-content p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+.review-response{
+	padding:5px;
+}
+
+#pieChart {
+      width: 400px !important;
+      height: 400px !important;
+    }
+    
+ .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+ 

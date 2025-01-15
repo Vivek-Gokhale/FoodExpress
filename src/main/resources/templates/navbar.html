@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+    <nav>
+        <div class="NavbarContainer">
+            <div class="logo">
+                <a href="#" th:href="@{/}">Food Express  &nbsp;|  <span style="font-weight:lighter; color:gray">Flavor Delivered</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a th:href="@{/}" >Home</a></li>
+                <li><a th:href="@{food}" >Food</a></li>
+                <li><a th:href="@{add-restaurant}" >Add restaurant</a></li>
+                <li><a th:href="@{be-partner}" >Be partner</a></li>
+            </ul>
+            <div class="dropdown" id="login-dropdown">
+            
+            
+        <button class="dropdown-btn">Login</button>
+        
+        <div class="dropdown-content">
+            <a th:href="@{customer-login}" href="#">Customer Login</a>
+            <a th:href="@{admin-login}" href="#">Admin Login</a>
+            <a th:href="@{partner-login}" href="#">Partner Login</a>
+        </div>
+    </div>
+      <div class="dropdown" id="profile-dropdown">
+        <button class="profile-dropdown-btn" ></button>
+        <div class="dropdown-content">
+            <a th:href="@{order-history}" href="#">Order History</a>
+            <a th:href="@{user-address}" href="#">Your Address</a>
+            <a th:href="@{settings}" href="#">Settings</a>
+            <a href="#" id="logoutLink">Log out</a>
+        </div>
+        
+      <button class="dropdown-btn" id="cartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
+    </div>
+    
+        </div>
+    </nav>
+    <script th:src="@{/javascript/navbar.js}"></script>
+    <script>
+    document.getElementById('logoutLink').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
+      	localStorage.removeItem('isLoggedInCustomer');
+	    localStorage.removeItem('userEmailCustomer');
+		localStorage.removeItem('userIdCustomer');
+		localStorage.removeItem('usernameCustomer');
+      window.location.href = '/'; // Change this to your actual logout or redirect URL
+    });
+  </script>
+    
+</body>
+</html>

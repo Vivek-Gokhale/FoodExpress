@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Food Express</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+</head>
+<body>
+<div th:replace="navbar :: body"></div>
+
+<div class="restaurant-review-form-container">
+  <form id="restaurantReviewForm">
+    <h2>Write a Review</h2>
+    <br>
+    <div class="restaurant-review-form-group">
+  <a class="singleProdLink" th:href="@{/single-food-page(itemId=${itemId})}">
+
+
+    <div class="form-group" style="display: flex; gap: 1rem;">
+        <!-- Dynamically set the image source using the image URL -->
+        <img class="productReviewImg" th:src="@{'/images_RestaurantM/' + ${image}}" alt="Product Image">
+        <div style="display: flex; flex-direction: column;">
+            <!-- Display restaurant name and product name using model attributes -->
+            <p class="restaurantName" th:text="${restaurantName}">Restaurant Name</p>
+            <p class="productName" th:text="${itemName}">Product Name</p>
+        </div>
+    </div>
+</a>
+
+      <label class="restaurant-review-label"><strong>Overall Rating</strong></label>
+      
+      <div class="restaurant-review-rating-group">
+  <div class="stars-container">
+    <span class="star" data-value="1"><i class="fa-regular fa-star"></i></span>
+    <span class="star" data-value="2"><i class="fa-regular fa-star"></i></span>
+    <span class="star" data-value="3"><i class="fa-regular fa-star"></i></span>
+    <span class="star" data-value="4"><i class="fa-regular fa-star"></i></span>
+    <span class="star" data-value="5"><i class="fa-regular fa-star"></i></span>
+  </div>
+  <button type="button" class="clear-rating">Clear</button>
+</div>
+
+    </div>
+    <div class="restaurant-review-form-group">
+      <label class="restaurant-review-label" for="writtenReview"><strong>Written Review</strong></label>
+      <textarea id="writtenReview" name="writtenReview" placeholder="Share your experience..." required rows="5"></textarea>
+    </div>
+    <button type="submit" class="restaurant-review-save-button">Save</button>
+  </form>
+</div>
+
+
+<div th:replace="footer :: body"></div>
+
+<script th:src="@{/javascript/createReview.js}"></script>
+</body>
+</html>

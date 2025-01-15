@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Food Express</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+    
+</head>
+<body>
+<div th:replace="navbar :: body"></div>
+<div class="food-container" id="foodList">
+
+</div>
+
+
+<div th:replace="footer :: body"></div>
+<script th:src="@{/javascript/food.js}"></script>
+</body>
+</html>

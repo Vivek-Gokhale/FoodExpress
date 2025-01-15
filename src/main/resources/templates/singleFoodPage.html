@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Food Express</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+    <style>
+   
+    </style>
+</head>
+<body>
+<div th:replace="navbar :: body"></div>
+<div class="single-food-container">
+    <div class="image-section">
+        <img src="/images_RestaurantM/default-image.jpg" alt="Food Item">
+    </div>
+    <div class="details-section">
+        <h1>Food Item Name</h1>
+        <p class="restaurant-name">restaurant name</p>
+        <div class="rating">
+            <i class="fa-solid fa-star" style="color:#e9db16;"></i>
+            <i class="fa-solid fa-star" style="color:#e9db16;"></i>
+            <i class="fa-solid fa-star" style="color:#e9db16;"></i>
+            <i class="fa-solid fa-star" style="color:#e9db16;"></i>
+            <i class="fa-solid fa-star" style="color:#ccc;"></i>
+        </div>
+        <p class="description">
+            Food description goes here. This is a sample text showing the details of the selected food item.
+        </p>
+        <p class="price">₹20.00</p>
+        <p class="stock">Available : 100</p>
+         <div class="productQuantityElement">
+              <p class="productProperty">Quantity</p>
+              <div class="stockElement">
+                <button class="cartDecrement">-</button>
+                <p class="productQuantity">1</p>
+                <button class="cartIncrement">+</button>
+              </div>
+         </div>
+        <div class="buttons">
+            <button class="add-to-cart">ADD <i class="fa-solid fa-cart-shopping"></i></button>
+            
+        </div>
+        
+    </div>
+</div>
+<center>
+<div class="button-container">
+        <button id="address">Restaurant Address</button>
+        <button id="reviews">Restaurant Reviews</button>
+    </div>
+</center>
+
+ <div class="address-container" >
+  <div class="address-text">
+    <p><span class="address"></span></p>
+    <div style="display:flex; gap:10px;margin-top:5px;" >
+    <p><span class="phone"></span></p>|
+    <p><span class="email"></span></p>
+    </div>
+    <div style="display:flex; gap:10px;margin-top:5px;">
+    <p><strong>Open at:</strong> <span class="opening-time"></span></p>
+    <p><strong>Close at:</strong> <span class="closing-time"></span></p>
+    </div>
+    
+  </div>
+<div class="address-location">
+    <iframe 
+        id="addressMap" 
+       
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    </iframe>
+  </div>
+</div>
+
+<div class="reviews-container" style="display:none;">
+ 	
+</div>
+
+
+ 
+<div th:replace="footer :: body"></div>
+
+<script th:src="@{/javascript/singleFood.js}"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Food Express</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+</head>
+<body>
+<div th:replace="navbar :: body"></div>
+
+<div class="notification-preferences">
+    <h2>Notification Preferences</h2>
+    <p>Receive updates related to order status, promo codes, and more</p>
+
+    <div class="preference-item">
+        <label for="enable-all">Enable All</label>
+        <label class="toggle">
+            <input type="checkbox" id="enable-all" />
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="preference-item">
+        <label for="notification-flag">Notifications</label>
+        <label class="toggle">
+            <input type="checkbox" id="notification-flag" />
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="preference-item">
+        <label for="newsletter-flag">Newsletters</label>
+        <label class="toggle">
+            <input type="checkbox" id="newsletter-flag" />
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="preference-item">
+        <label for="promos-offer-flag">Promos and Offers</label>
+        <label class="toggle">
+            <input type="checkbox" id="promos-offer-flag" />
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="preference-item">
+        <label for="order-status-flag">Order Status</label>
+        <label class="toggle">
+            <input type="checkbox" id="order-status-flag" />
+            <span class="slider"></span>
+        </label>
+    </div>
+	 <input type="hidden" id="coins" name="coins" value="">
+    <input type="hidden" id="preferenceId" name="preferenceId" value="">
+    <input type="hidden" id="userId" name="userId" value="">
+
+    <button class="setting-button" id="save-preferences">Save</button>
+</div>
+
+
+<div th:replace="footer :: body"></div>
+<script th:src="@{/javascript/settings.js}"></script>
+</body>
+</html>

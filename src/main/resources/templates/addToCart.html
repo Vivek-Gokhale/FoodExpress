@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Food Express</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+    
+</head>
+<body>
+<div th:replace="navbar :: body"></div>
+
+    <div class="empty-cart-container" id="emptyCon" style="display:none">
+    <img th:src="@{/images/cart.png}" alt="Empty Cart"></img>
+    <br>
+        <div class="empty-cart-heading">Your Cart is Empty</div>
+        <div class="empty-cart-subheading">Add something to make me happy</div>
+        
+     
+    </div>
+ <section class="BasketElement" id="BasketEle" style="display:none">
+      <div class="BasketContainer" style="padding-top: 0%;">
+        <table>
+          <thead>
+              <tr>
+                  <th>Food</th>
+                  <th>Dishname</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Quantity</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody id="foodItemList">
+            <!-- This is where the product templates will be dynamically inserted -->
+        </tbody>
+      </table>
+ <!-- Template for a product -->
+    <template id="BasketItemTemplate">
+     
+        
+      <tr class="basket-food-item-row" id="basketFoodCartValue">
+      
+          <td class="basket-food-image-container">
+            <a href="singleProductPage.html" data-id="" class="basket-fooditem-link" id="singleFoodItem">
+              <img class="basket-food-image" src="" alt="Product Image" />
+            </a>
+          </td>
+          <td class="basketFoodItemName"></td>
+          <!-- <td class="product-name"></td> -->
+          <td class="basketFoodItemPrice"></td>
+          <td class="basketFoodItemStatus">
+            <div>
+              <span class="category"></span>
+            </div>
+          </td>
+          <td>
+              <div class="stockElement">
+                  <button class="cartDecrement">-</button>
+      				<center>
+                  <p class="productQuantity">1</p></center>
+                  <button class="cartIncrement">+</button>
+              </div>
+          </td>
+          <td>
+              <button class="dropdown-btn" id="removeCartItem">Remove</button>
+          </td>
+          
+      </tr>
+      
+      
+  </template>
+      
+       
+      </div>
+    </section>
+    <div class="order-summary" id="orderSum" style="display:none">
+    	
+        <div class="summary-item">
+            <h2>Order Summary</h2>
+            <button class="dropdown-btn" id="proceedToPay">Proceed</button>
+        </div>
+        <div class="summary-item">
+            <span>Total Amount:</span>
+            <span id="totalAmount">₹0.00</span>
+        </div>
+        
+        <div class="summary-item">
+            <span>Coupon Discount:</span>
+            <span id="couponDiscount">₹0.00</span>
+        </div>
+        <div class="summary-item">
+            <span>Tax (5%):</span>
+            <span id="tax">₹0.00</span>
+        </div>
+        <div class="summary-item">
+            <span>Savings:</span>
+            <span id="savings">₹0.00</span>
+        </div>
+        <hr>
+        <div class="summary-total">
+            <span>Final Amount:</span>
+            <span id="finalAmount">₹0.00</span>
+        </div>
+    </div>
+    <div id="paymentPopup" class="popup-overlay">
+    <div class="popup-content">
+        <h3 style="font-size:24px;">Payment Summary</h3>
+        <p>Review your order details before proceeding to payment.</p>
+
+        <!-- Input field for applying coupon -->
+        <div class="coupon-section">
+            
+            <input type="text" id="couponCode" placeholder="Enter coupon code">
+            <button id="applyCoupon" class="apply-coupon">Apply</button>
+            
+        <button id="placeOrder" class="place-order">Place Order</button>
+       
+        </div>
+
+        <!-- Payment method options -->
+        <div class="payment-options">
+            <p style="color:black">Payment Method:</p>
+            <label>
+                <input type="radio" name="paymentMethod" value="online" checked>
+                Online Payment
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="cod">
+                Cash on Delivery (COD)
+            </label>
+        </div>
+        <div class="special-request">
+            <table style="width: 100%; border-collapse: collapse; border:none;">
+               
+            </table>
+        </div>
+
+        <!-- Place Order Button -->
+    </div>
+</div>
+
+    
+    
+<div th:replace="footer :: body"></div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script th:src="@{/javascript/addToCart.js}"></script>
+</body>
+</html>

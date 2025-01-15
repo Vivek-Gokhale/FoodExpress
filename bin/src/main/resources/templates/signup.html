@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+ <link rel="stylesheet" th:href="@{/css/style.css}"> 
+<title>Sign Up</title>
+</head>
+<body>
+
+    <div class="form-container" style="margin-top:50px;">
+        <p class="title">Sign Up</p>
+        <form class="form" method="post" id="signupform">
+            <input type="email" class="input" name="user_email" placeholder="Email" required id="signupEmail" autocomplete="off">
+            <input type="password" class="input" name="user_password" placeholder="Password" required id="signupPassword" autocomplete="off">
+            <input type="text" class="input" name="first_name" placeholder="First Name" required id="FirstName" autocomplete="off">
+            <input type="text" class="input" name="last_name" placeholder="Last Name" required id="LastName" autocomplete="off">
+            <input type="tel" class="input" name="user_phone_no" placeholder="Phone Number" required id="Phone_no" autocomplete="off">
+            <button class="btn" type="submit" id="signupButton">Sign Up</button>
+        </form>
+
+        <div id="otp-container" style="display: none;">
+            <input type="text" class="input" placeholder="Enter OTP" id="otpField" autocomplete="off">
+            <button class="btn" id="verifyOtpButton">Verify</button>
+        </div>
+
+        <p class="sign-up-label" style="font-size:12px;">
+            Already have an account? <span class="sign-up-link"><a th:href="@{/login}">Log in</a></span>
+        </p>
+    </div>
+
+    <script th:src="@{/javascript/signup.js}"></script>
+</body>
+</html>

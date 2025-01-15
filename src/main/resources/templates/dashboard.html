@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyBcIpX8BWWijn5yhyQRnXquOzLErrIlDuv&libraries=places"></script>
+  <title>Admin Dashboard</title><link rel="stylesheet" th:href="@{/css/adminPanel.css}">
+</head>
+<body>
+  <div class="admin-panel">
+    <aside class="sidebar">
+      <div class="logo"></div>
+      <nav>
+        <ul>
+          <!-- Combobox for Forms -->
+          <li class="combobox">
+            <span class="combobox-trigger">Forms ▼</span>
+            <ul class="combobox-options">
+              <li><a href="#" data-form="admin">Admin</a></li>
+              <li><a href="#" data-form="addMenuItem">Add MenuItem</a></li>
+            </ul>
+          </li>
+
+          <!-- Combobox for Tables -->
+          <li class="combobox">
+            <span class="combobox-trigger">Management ▼</span>
+            <ul class="combobox-options">
+              <li><a href="#" data-table="admin">Admin</a></li>
+              <li><a href="#" data-table="reviews">Reviews</a></li>
+              
+             
+              <li><a href="#" data-table="menuItemsTable">MenuItems</a></li>
+              <li><a href="#" data-table="orders">Orders</a></li>
+              
+              
+            </ul>
+          </li>
+           <li class="combobox">
+            <span class="combobox-trigger">Reports ▼</span>
+            <ul class="combobox-options">
+              <li><a href="#" data-table="dailyReport">Daily Report</a></li>
+              <li><a href="#" data-table="weeklyReport">Weekly Report</a></li>
+              <li><a href="#" data-table="monthlyReport">Monthly Report</a></li>
+              
+            </ul>
+          </li>
+           <li class="combobox">
+            <span class="combobox-trigger">Analytics ▼</span>
+            <ul class="combobox-options">
+             <li><a href="#" data-table="userStats">Order stats</a></li>
+              <li><a href="#" data-table="preferences">Popular Preferences</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <header>
+        <div class="logout-btn">
+		    <button class="logout" id="logout">Logout</button>
+		  </div>
+      </header>
+      <div id="displayArea"></div>
+      <br>
+      
+       
+    </main>
+  </div>
+<script th:src="@{/javascript/dashboard.js}"></script>
+
+</body>
+</html>

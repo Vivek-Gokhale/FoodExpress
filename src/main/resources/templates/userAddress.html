@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Food Express</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+</head>
+<body>
+<div th:replace="navbar :: body"></div>
+
+<div class="customer-address-container">
+
+	<a th:href="@{add-customer-address}" class="no-text-decoration">
+    <div class="address-card add-address">
+        <div class="add-icon">+</div>
+        <p>Add address</p>
+    </div>
+	</a>
+
+
+    
+</div>
+
+
+<div th:replace="footer :: body"></div>
+  <script th:src="@{/javascript/userAddress.js}"></script>
+</body>
+</html>
