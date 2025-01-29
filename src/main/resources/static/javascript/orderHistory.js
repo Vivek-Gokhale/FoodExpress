@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 					                   
 									console.log(customerLocation, partnerLocation);
 					                document.getElementById('live-tracking-popup').style.display = 'block';
-									document.getElementById('map').style.display = 'block';
+									document.getElementById('addressMapTrack').style.display = 'block';
 									overlay = document.createElement("div");
 												            overlay.style.cssText = `
 												                position: fixed;
@@ -200,7 +200,7 @@ async function getCoordinates(address) {
 }
 
 function initMap(customerLocation, partnerLocation) {
-            const map = new google.maps.Map(document.getElementById("map"), {
+            const map = new google.maps.Map(document.getElementById("addressMapTrack"), {
                 zoom: 12,
                 center: partnerLocation,
             });

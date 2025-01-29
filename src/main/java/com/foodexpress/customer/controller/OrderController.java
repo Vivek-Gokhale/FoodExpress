@@ -67,7 +67,7 @@ public class OrderController {
 
                 com.razorpay.Order razorpayOrder = client.orders.create(options);
 
-                Order orderPlaced = orderService.placeOrder(userId, paymentFlag, finalAmount * 100, itemRequestMap);
+                Order orderPlaced = orderService.placeOrder(userId, paymentFlag, finalAmount, itemRequestMap);
                 if (orderPlaced != null) {
                 	String customerEmail = orderService.getCustomer(userId).getEmail();
                 	emailService.sendSimpleEmail(customerEmail, "Payment Success and Order Confirmation", "Dear Customer Your Order with ORDER ID " + orderPlaced.getOrderId()+ " has been Placed.");

@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			        .then(response => response.json())
 			        .then(orderResponse => {
 			            resetOrderSummary();
+						
 			            if (orderResponse.id) {
 			                const razorpayOptions = {
 			                    key: 'rzp_test_s2VG2G2HwcOQd6',
@@ -176,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			                };
 			                const rzp = new Razorpay(razorpayOptions);
 			                rzp.open();
+							
 			            } else {
 			                alert('Failed to create Razorpay order');
 			            }
@@ -418,6 +420,7 @@ function collectItemsForOrder() {
 
 function resetOrderSummary() {
     // Hide payment popup
+	
     const paymentPopup = document.getElementById('paymentPopup');
     if (paymentPopup) {
         paymentPopup.style.display = 'none';
@@ -435,4 +438,8 @@ function resetOrderSummary() {
     document.getElementById('tax').textContent = '₹0.00';
     document.getElementById('savings').textContent = '₹0.00';
     document.getElementById('finalAmount').textContent = '₹0.00';
+	
+	document.getElementById("BasketEle").style.display = "none";
+	document.getElementById("emptyCon").style.display = "block";
+	document.getElementById("orderSum").style.display = "none";
 }

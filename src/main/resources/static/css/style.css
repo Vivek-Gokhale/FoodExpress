@@ -1283,7 +1283,7 @@ th {
         }
         
         
-	 #map {
+	 #addressMapTrack {
 	           width: 100%;
 	           height: 400px;
 	           display: none; /* Initially hidden */
